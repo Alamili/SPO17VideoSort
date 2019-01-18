@@ -1,0 +1,88 @@
+﻿@model IEnumerable<SPO17VideoSort.Data.Entities.Video>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+                <input type="text" id="titleFilter" value="@ViewData["Filter"]" />
+                <a asp-action="Sort" asp-controller="Videos"
+                   asp-route-column="Title"
+                   asp-route-ascending="true"
+                   >⯅</a>
+                <a asp-action="Sort" asp-controller="Videos"
+                   asp-route-column="Title"
+                   asp-route-ascending="false">⯆</a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+                <a asp-action="Sort" asp-controller="Videos"
+                   asp-route-column="Year"
+                   asp-route-ascending="true">⯅</a>
+                <a asp-action="Sort" asp-controller="Videos"
+                   asp-route-column="Year"
+                   asp-route-ascending="false">⯆</a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+                <a asp-action="Sort" asp-controller="Videos"
+                   asp-route-column="Genre"
+                   asp-route-ascending="true">⯅</a>
+                <a asp-action="Sort" asp-controller="Videos"
+                   asp-route-column="Genre"
+                   asp-route-ascending="false">⯆</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+<script>
+    $( document ).ready(function() {
+        $('thead a').click(function() {
+            let filter = $('#titleFilter').val();
+            let href = $(this).attr('href');
+            $(this).attr('href', href + '&filter=' + filter);
+        });
+    });
+</script>
+
+}
